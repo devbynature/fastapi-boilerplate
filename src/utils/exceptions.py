@@ -1,0 +1,2 @@
+class PostgresConnectionErr(Exception):
+    pass
