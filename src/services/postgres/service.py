@@ -22,6 +22,8 @@ class PostgresService:
         self._engine = engine
 
     async def get_session(self) -> AsyncSession:
+        if not self._engine:
+            await self.create_engine()
         session = sessionmaker(  # noqa
             bind=self._engine,
             class_=AsyncSession,

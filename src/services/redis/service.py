@@ -14,6 +14,8 @@ class RedisService:
         return self._client
 
     async def get_client(self) -> redis.Redis:
+        if not self._client:
+            await self.connect()
         return self._client
 
 
