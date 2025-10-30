@@ -1,23 +1,22 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
-
+from utils.app import App
 from core import events
 from core.router import initialize_routes
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: App):
     # On Startup
-    await events.startup_event_handler()
+    await events.startup_event_handler(app=app)
 
     yield
 
     # On Shutdown
-    await events.shutdown_event_handler()
+    await events.shutdown_event_handler(app=app)
 
 
-app = FastAPI(
+app = App(
     lifespan=lifespan,
 )
 
