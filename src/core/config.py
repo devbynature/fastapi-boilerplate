@@ -26,7 +26,7 @@ class DatabaseConfig(BaseConfig):
     pool_size: int = 10
     max_overflow: int = 5
     echo: bool = (
-        True  # True means write sql queries in std.out. Set False in production.
+        False  # True means write sql queries in std.out. Set False in production.
     )
 
     @property
