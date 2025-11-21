@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from src.apps.ping.controllers import ping_controller
+from apps.ping.controllers import ping_controller
 
 ping_router = APIRouter(
     tags=["ping"],

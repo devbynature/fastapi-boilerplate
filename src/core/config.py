@@ -17,7 +17,7 @@ class AppConfig(BaseConfig):
 app_config = AppConfig()
 
 
-class DatabaseConfig(BaseConfig):
+class PostgresConfig(BaseConfig):
     username: str = "postgres"
     password: str = "postgres"
     database: str = "database"
@@ -37,10 +37,10 @@ class DatabaseConfig(BaseConfig):
         )
 
     class Config:
-        env_prefix = "DB_"
+        env_prefix = "POSTGRES_"
 
 
-database_config = DatabaseConfig()
+postgres_config = PostgresConfig()
 
 
 class RedisConfig(BaseConfig):

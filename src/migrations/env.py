@@ -6,7 +6,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlmodel import SQLModel
 
-from core.config import database_config
+from core.config import postgres_config
 from apps.models_to_migrations import *
 
 from alembic import context
@@ -19,7 +19,7 @@ config = context.config
 # Database connection
 config.set_main_option(
     "sqlalchemy.url",
-    database_config.database_url,
+    postgres_config.database_url,
 )
 
 # Interpret the config file for Python logging.
