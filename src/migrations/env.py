@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlmodel import SQLModel
 
 from core.config import postgres_config
-from apps.models_to_migrations import *
+from apps import *
 
 from alembic import context
 
