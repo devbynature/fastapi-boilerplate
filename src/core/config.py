@@ -8,6 +8,7 @@ class BaseConfig(PydanticBaseConfig):
 
 class AppConfig(BaseConfig):
     secret_key: str = "secret_key"
+    jwt_secret_key: str = "jwt_secret_key"
     debug: bool = True
 
     class Config:

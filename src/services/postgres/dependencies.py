@@ -1,14 +1,15 @@
 from typing import AsyncGenerator
-from fastapi import HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import HTTPException, Request
+from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
 from sqlalchemy.orm import sessionmaker
 
-from services.postgres.engine import postgres_engine
 
-
-async def get_session() -> AsyncGenerator[AsyncSession, None]:
-    if postgres_engine is None:
-        raise HTTPException(status_code=500, detail="Redis client not initialized")
+async def get_session(request: Request) -> AsyncGenerator[AsyncSession, None]:
+    postgres_engine: AsyncEngine | None = getattr(
+        request.app.state, "postgres_engine", None
+    )
+    if not postgres_engine:
+        raise HTTPException(status_code=500, detail="postgres client not initialized")
     session = sessionmaker(  # noqa
         postgres_engine,
         class_=AsyncSession,

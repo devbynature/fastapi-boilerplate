@@ -3,15 +3,11 @@ from pymongo import AsyncMongoClient
 from fastapi import FastAPI
 
 from core.config import mongo_config
-from apps import document_models, TestDocument
-
-mongo_client: AsyncMongoClient | None = None
+from apps import document_models
 
 
 async def mongo_startup_lifespan(app: FastAPI) -> None:
-    global mongo_client
-
-    mongo_client = AsyncMongoClient(
+    mongo_client: AsyncMongoClient | None = AsyncMongoClient(
         mongo_config.mongo_url,
     )
 
@@ -24,9 +20,12 @@ async def mongo_startup_lifespan(app: FastAPI) -> None:
     except Exception as e:
         print(f"Failed to connect to MongoDB: {e}")
 
+    app.state.mongo_client = mongo_client
+
 
 async def mongo_shutdown_lifespan(app: FastAPI) -> None:
     print("Closing mongo connection.")
+    mongo_client = getattr(app.state, "mongo_client", None)
     if mongo_client:
         await mongo_client.close()
     print("Mongo connection closed.")
