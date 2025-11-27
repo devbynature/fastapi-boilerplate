@@ -8,6 +8,7 @@ dependencies = [
     "aioredis>=2.0.1",
     "alembic>=1.17.1",
     "asyncpg>=0.30.0",
+    "beanie>=2.0.1",
     "fastapi[standard]>=0.120.1",
     "pre-commit>=4.3.0",
     "pydantic-settings==2.1",

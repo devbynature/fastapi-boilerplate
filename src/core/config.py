@@ -59,3 +59,20 @@ class RedisConfig(BaseConfig):
 
 
 redis_config = RedisConfig()
+
+
+class MongoConfig(BaseConfig):
+    host: str = "localhost"
+    port: int = 27017
+    username: str = "mongo"
+    password: str = "mongo"
+
+    @property
+    def mongo_url(self) -> str:
+        return f"mongodb://{self.username}:{self.password}@{self.host}:{self.port}"
+
+    class Config:
+        env_prefix = "MONGO_"
+
+
+mongo_config = MongoConfig()
