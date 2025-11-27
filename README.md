@@ -1,5 +1,5 @@
 # fastapi-boilerplate
-FastAPI, SQLModel, Alembic, Redis, UV
+FastAPI, SQLModel, Alembic, Redis, MongoDB, JWT, UV
 
 NOTE: import new models in apps/\_\_init\_\_.py to make alembic migration files.
 
