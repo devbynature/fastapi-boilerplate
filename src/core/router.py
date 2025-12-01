@@ -9,6 +9,5 @@ main_router = APIRouter(
 
 def initialize_routes(app: FastAPI):
     main_router.include_router(user_router)
-    app.state
 
     app.include_router(main_router)
