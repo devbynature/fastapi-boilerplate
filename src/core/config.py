@@ -1,9 +1,12 @@
 from pydantic_settings import BaseSettings as PydanticBaseConfig
+from pydantic_settings import SettingsConfigDict
 
 
 class BaseConfig(PydanticBaseConfig):
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+    )
 
 
 class AppConfig(BaseConfig):
@@ -11,8 +14,9 @@ class AppConfig(BaseConfig):
     jwt_secret_key: str = "jwt_secret_key"
     debug: bool = True
 
-    class Config:
-        env_prefix = "APP_"
+    model_config = SettingsConfigDict(
+        env_prefix="APP_",
+    )
 
 
 app_config = AppConfig()
@@ -37,8 +41,9 @@ class PostgresConfig(BaseConfig):
             f"@{self.host}:{self.port}/{self.database}"
         )
 
-    class Config:
-        env_prefix = "POSTGRES_"
+    model_config = SettingsConfigDict(
+        env_prefix="POSTGRES_",
+    )
 
 
 postgres_config = PostgresConfig()
@@ -55,8 +60,9 @@ class RedisConfig(BaseConfig):
     def redis_url(self) -> str:
         return f"redis://{self.host}:{self.port}/{self.database}"
 
-    class Config:
-        env_prefix = "REDIS_"
+    model_config = SettingsConfigDict(
+        env_prefix="REDIS_",
+    )
 
 
 redis_config = RedisConfig()
@@ -72,8 +78,9 @@ class MongoConfig(BaseConfig):
     def mongo_url(self) -> str:
         return f"mongodb://{self.username}:{self.password}@{self.host}:{self.port}"
 
-    class Config:
-        env_prefix = "MONGO_"
+    model_config = SettingsConfigDict(
+        env_prefix="MONGO_",
+    )
 
 
 mongo_config = MongoConfig()
